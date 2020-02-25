@@ -31,12 +31,11 @@ for job_elem in job_elems :
     except:
         print("pas de ul")
     #Recupération du titre du poste
-    title_elem = job_elem.find("""Balise HTML""", class_="""Nom de classe""")
+    title_elem = job_elem.find()
     #Récupération du nom de l'entreprise
-    company_elem = job_elem.find("""Balise HTML""", class_="""Nom de classe""")
+    company_elem = job_elem.find()
     #Récuperation de la localisation du poste
-    location_elem = job_elem.find("""Balise HTML""", class_="""Nom de classe""")
-
+    location_elem = job_elem.find()
     # si une des trois infos principales manque : on passe tout en enregistrant le rejet
     if None in (title_elem, company_elem, location_elem):
         count_erreur += 1
