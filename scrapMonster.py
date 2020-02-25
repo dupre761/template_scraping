@@ -9,6 +9,7 @@ import requests
 from bs4 import BeautifulSoup
 
 URL = 'https://www.monster.fr/emploi/recherche/?q=data&cy=fr&stpage=1&page=10'
+#Créer et envois une requete comme le ferait un navigateur web
 page = requests.get(URL)
 #parsage du html
 soup = BeautifulSoup(page.content, 'html.parser')
@@ -29,17 +30,19 @@ for job_elem in job_elems :
         job_elem.ul.decompose()
     except:
         print("pas de ul")
+    #Recupération du titre du poste
+    title_elem = job_elem.find("""Balise HTML""", class_="""Nom de classe""")
+    #Récupération du nom de l'entreprise
+    company_elem = job_elem.find("""Balise HTML""", class_="""Nom de classe""")
+    #Récuperation de la localisation du poste
+    location_elem = job_elem.find("""Balise HTML""", class_="""Nom de classe""")
 
-    title_elem = job_elem.find('h2', class_='title')
-    company_elem = job_elem.find('div', class_='company')
-    location_elem = job_elem.find('div', class_='location')
-
-    # si une des trois infos principales manque : on passe
+    # si une des trois infos principales manque : on passe tout en enregistrant le rejet
     if None in (title_elem, company_elem, location_elem):
         count_erreur += 1
         rejets.append([title_elem, company_elem, location_elem])
         continue
-
+    #affichage des résultats
     print("*********************************************************************")
     print(title_elem.text.strip())
     print(company_elem.text.strip())
