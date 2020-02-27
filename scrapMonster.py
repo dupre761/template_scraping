@@ -26,16 +26,18 @@ count_erreur = 0
 
 for job_elem in job_elems :
     #retire les icones type accesibilité de nos resultats
+
     try:
         job_elem.ul.decompose()
     except:
         print("pas de ul")
+
     #Recupération du titre du poste
-    title_elem = job_elem.find()
+    title_elem = job_elem.find('h2', class_='title')
     #Récupération du nom de l'entreprise
-    company_elem = job_elem.find()
+    company_elem = job_elem.find('div', class_='company')
     #Récuperation de la localisation du poste
-    location_elem = job_elem.find()
+    location_elem = job_elem.find('span', class_='name')
     # si une des trois infos principales manque : on passe tout en enregistrant le rejet
     if None in (title_elem, company_elem, location_elem):
         count_erreur += 1
